@@ -1,46 +1,40 @@
-# Getting Started with Create React App
+# Web3 Starter App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This repository is a starter app to build web3 front-end applications for dapps. It currently supports Ethereum, Binance Smart Chain (BSC),
+Polygon, and Avalanche networks. It will be updated in the future to support other networks.
 
-## Available Scripts
+This solution uses the following:
+- Create React App
+- Typescript
+- Yarn
+- Redux
+- Alchemy Web3
+- React-Router
+- Walletconnect
 
-In the project directory, you can run:
+## Steps to rebuild
 
-### `yarn start`
+1. Clone repository.
+2. If not installed, add yarn globally `npm i g yarn`
+3. Install dependencies `yarn`
+4. Create a .env.development file at the root of the project and add the following variables
+```
+REACT_APP_ETH_RPC={Alchemy ETH mainnet wss url}
+REACT_APP_ETH_RPC_HTTPS={Alchemy ETH mainnet api https url}
+REACT_APP_BSC_RPC={BSC rpc wss url}
+REACT_APP_BSC_RPC_HTTPS={BSC rpc https url}
+REACT_APP_POLYGON_RPC={Alchemy Polygon wss url}
+REACT_APP_POLYGON_RPC_HTTPS={Alchemy Polygon https url}
+REACT_APP_AVALANCHE_RPC={Avalanche wss url}
+REACT_APP_AVALANCHE_RPC_HTTPS={Avalanche https url}
+```
+You can create Ethereum and Polygon API keys at Alchemy API; for BSC and Avalanche search online for a server. HTTPS is used for Walletconnect. You can ignore WSS if you don't want to use websockets, just make sure to replace the values in /utils/base. Websockets are recommended, however.
+5. Run development environment `yarn start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Details
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+What's currently built:
+1. State object is created in Redux to manage connection details. See it in /state/connect. It is also added to src/state.ts.
+2. Redux state is added to provider in index.tsx.
+3. A modal component is built in components/Modal.
+4. App.tsx is set up with a connectWallet button and useEffect hooks to launch on load.
