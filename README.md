@@ -29,6 +29,7 @@ REACT_APP_AVALANCHE_RPC={Avalanche wss url}
 REACT_APP_AVALANCHE_RPC_HTTPS={Avalanche https url}
 ```
 You can create Ethereum and Polygon API keys at Alchemy API; for BSC and Avalanche search online for a server. HTTPS is used for Walletconnect. You can ignore WSS if you don't want to use websockets, just make sure to replace the values in /utils/base. Websockets are recommended, however.
+
 5. Run development environment `yarn start`
 
 ## Details
