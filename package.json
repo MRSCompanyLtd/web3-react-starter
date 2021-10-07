@@ -3,7 +3,12 @@
   "version": "0.1.0",
   "private": false,
   "author": "Daniel Perklin",
-  "keywords": ["Ethereum", "Web3", "Blockchain", "BSC"],
+  "keywords": [
+    "Ethereum",
+    "Web3",
+    "Blockchain",
+    "BSC"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/dperk6/web3-cra-starter"
