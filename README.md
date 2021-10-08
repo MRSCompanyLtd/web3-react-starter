@@ -27,8 +27,12 @@ REACT_APP_POLYGON_RPC={Alchemy Polygon wss url}
 REACT_APP_POLYGON_RPC_HTTPS={Alchemy Polygon https url}
 REACT_APP_AVALANCHE_RPC={Avalanche wss url}
 REACT_APP_AVALANCHE_RPC_HTTPS={Avalanche https url}
+REACT_APP_ARBITRUM_RPC={Alchemy Arbitrum wss url}
+REACT_APP_ARBITRUM_RPC_HTTPS={Alchemy Arbitrum https url}
+REACT_APP_FANTOM_RPC={Fantom wss url}
+REACT_APP_FANTOM_RPC_HTTPS={Fantom https url}
 ```
-You can create Ethereum and Polygon API keys at Alchemy API; for BSC and Avalanche search online for a server. HTTPS is used for Walletconnect. You can ignore WSS if you don't want to use websockets, just make sure to replace the values in /utils/base. Websockets are recommended, however.
+You can create Ethereum, Arbitrum and Polygon API keys at Alchemy API; for BSC, Fantom, and Avalanche search online for a server. HTTPS is used for Walletconnect. You can ignore WSS if you don't want to use websockets, just make sure to replace the values in /utils/base. Websockets are recommended, however.
 
 5. Run development environment `yarn start`
 
