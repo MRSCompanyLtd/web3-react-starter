@@ -19,9 +19,9 @@ const App: React.FC = () => {
 
   const connectWallet = React.useCallback(async (service: 'injected' | 'walletconnect') => {
     try {
-      const chainId: number = await web3.eth.getChainId();
-      await setProvider(service, chainId);
+      await setProvider(service);
       const accounts: string[] = await web3.eth.getAccounts();
+      const chainId: number = await web3.eth.getChainId();
       dispatch(makeConnection({
         connected: true,
         address: accounts[0],
@@ -44,40 +44,46 @@ const App: React.FC = () => {
   React.useEffect(() => {
     async function subscribe() {
       const provider: any = await detectEthereumProvider();
-      const wallet: string = localStorage.getItem('walletprovider') ?? 'injected';
-
-      if (wallet === 'walletconnect' || wallet === 'injected') {
-        provider.on("connect", async (chainId: {chainId: number}) => {
-          dispatch(changeChain(chainId.chainId));
-        });
-    
-        provider.on("disconnect", () => {
-            localStorage.removeItem('walletprovider');
-            dispatch(reset())
-          }
-        );
-
-        provider.on("close", () => {
+      provider.on("connect", async () => {
+        const chain: number = await web3.eth.getChainId();
+        dispatch(changeChain(chain));
+      });
+  
+      provider.on("disconnect", () => {
           localStorage.removeItem('walletprovider');
-          dispatch(reset());
-        })
-    
-        provider.on("accountsChanged", async (accounts: string[]) => {
-          if (accounts.length === 0) {
-            localStorage.removeItem('walletprovider');
-          }
-          dispatch((changeAccount(accounts[0])));
-        });
-    
-        provider.on("chainChanged", async (chainId: number) => {
-          dispatch(changeChain(chainId));
-        });
-      }
+          dispatch(reset())
+        }
+      );
+  
+      provider.on("accountsChanged", async (accounts: string[]) => {
+        if (accounts.length === 0) {
+          localStorage.removeItem('walletprovider');
+        }
+        dispatch((changeAccount(accounts[0])));
+      });
+  
+      provider.on("chainChanged", async (chainId: number) => {
+        dispatch(changeChain(chainId));
+      });
     }
     
     Promise.resolve(subscribe());
 
   }, [connected, dispatch])
+
+  const sendTx = async () => {
+    const accounts: string[] = await web3.eth.getAccounts();
+    const txParams = {
+      from: accounts[0],
+      to: accounts[0],
+      value: '10000000000000000',
+      gas: 0,
+      gasPrice: '0'
+    }
+    txParams.gas = await web3.eth.estimateGas(txParams);
+    txParams.gasPrice = await web3.eth.getGasPrice();
+    await web3.eth.sendTransaction(txParams);
+  }
 
   return (
     <div className="App">
@@ -86,9 +92,10 @@ const App: React.FC = () => {
           onClick={() => setModal(true)}>
             {connected ? 'Connected' : 'Connect'}
           </button>
-        <div className="chain-name">
+        <button onClick={async () => await sendTx()}>Test</button>
+        {connected &&<div className="chain-name">
           <span>{`Selected Network: ${Networks[Number(chain)]}`}</span>
-        </div>
+        </div>}
       </div>
       {modal &&
         <Modal open={modal} close={() => setModal(false)}>
