@@ -71,20 +71,6 @@ const App: React.FC = () => {
 
   }, [connected, dispatch])
 
-  const sendTx = async () => {
-    const accounts: string[] = await web3.eth.getAccounts();
-    const txParams = {
-      from: accounts[0],
-      to: accounts[0],
-      value: '10000000000000000',
-      gas: 0,
-      gasPrice: '0'
-    }
-    txParams.gas = await web3.eth.estimateGas(txParams);
-    txParams.gasPrice = await web3.eth.getGasPrice();
-    await web3.eth.sendTransaction(txParams);
-  }
-
   return (
     <div className="App">
       <div className="content">
@@ -92,7 +78,6 @@ const App: React.FC = () => {
           onClick={() => setModal(true)}>
             {connected ? 'Connected' : 'Connect'}
           </button>
-        <button onClick={async () => await sendTx()}>Test</button>
         {connected &&<div className="chain-name">
           <span>{`Selected Network: ${Networks[Number(chain)]}`}</span>
         </div>}
